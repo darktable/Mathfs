@@ -1,7 +1,7 @@
 ﻿// Some of this code is similar to Unity's original Mathf source to match functionality.
 // The original Mathf.cs source https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Mathf.cs
 // ...and the trace amounts of it left in here is copyright (c) Unity Technologies with license: https://unity3d.com/legal/licenses/Unity_Reference_Only_License
-// 
+//
 // Collected and expanded upon to by Freya Holmér (https://github.com/FreyaHolmer/Mathfs)
 
 using System;
@@ -17,6 +17,8 @@ namespace Freya {
 	public static class Mathfs {
 
 		const MethodImplOptions INLINE = MethodImplOptions.AggressiveInlining;
+
+		const MidpointRounding MIDPOINT_ROUNDING = MidpointRounding.AwayFromZero;
 
 		public static readonly bool[] bools = { false, true };
 
@@ -359,17 +361,17 @@ namespace Freya {
 		/// <param name="value">The value to clamp</param>
 		/// <param name="min">The minimum value</param>
 		/// <param name="max">The maximum value</param>
-		public static float Clamp( float value, float min, float max ) => value < min ? min : value > max ? max : value;
+        [MethodImpl( INLINE )] public static float Clamp( float value, float min, float max ) => value < min ? min : value > max ? max : value;
 
 		/// <summary>Clamps each component between <c>min</c> and <c>max</c></summary>
-		public static Vector2 Clamp( Vector2 v, Vector2 min, Vector2 max ) =>
+        [MethodImpl( INLINE )] public static Vector2 Clamp( Vector2 v, Vector2 min, Vector2 max ) =>
 			new Vector2(
 				v.x < min.x ? min.x : v.x > max.x ? max.x : v.x,
 				v.y < min.y ? min.y : v.y > max.y ? max.y : v.y
 			);
 
 		/// <inheritdoc cref="Mathfs.Clamp(Vector2,Vector2,Vector2)"/>
-		public static Vector3 Clamp( Vector3 v, Vector3 min, Vector3 max ) =>
+        [MethodImpl( INLINE )] public static Vector3 Clamp( Vector3 v, Vector3 min, Vector3 max ) =>
 			new Vector3(
 				v.x < min.x ? min.x : v.x > max.x ? max.x : v.x,
 				v.y < min.y ? min.y : v.y > max.y ? max.y : v.y,
@@ -377,7 +379,7 @@ namespace Freya {
 			);
 
 		/// <inheritdoc cref="Mathfs.Clamp(Vector2,Vector2,Vector2)"/>
-		public static Vector4 Clamp( Vector4 v, Vector4 min, Vector4 max ) =>
+        [MethodImpl( INLINE )] public static Vector4 Clamp( Vector4 v, Vector4 min, Vector4 max ) =>
 			new Vector4(
 				v.x < min.x ? min.x : v.x > max.x ? max.x : v.x,
 				v.y < min.y ? min.y : v.y > max.y ? max.y : v.y,
@@ -386,23 +388,23 @@ namespace Freya {
 			);
 
 		/// <inheritdoc cref="Mathfs.Clamp(float,float,float)"/>
-		public static int Clamp( int value, int min, int max ) => value < min ? min : value > max ? max : value;
+        [MethodImpl( INLINE )] public static int Clamp( int value, int min, int max ) => value < min ? min : value > max ? max : value;
 
 		/// <summary>Returns the value clamped between 0 and 1</summary>
-		public static float Clamp01( float value ) => value < 0 ? 0 : value > 1 ? 1 : value;
+        [MethodImpl( INLINE )] public static float Clamp01( float value ) => value < 0 ? 0 : value > 1 ? 1 : value;
 
 		/// <inheritdoc cref="Clamp01(float)"/>
-		public static double Clamp01( double value ) => value < 0 ? 0 : value > 1 ? 1 : value;
+        [MethodImpl( INLINE )] public static double Clamp01( double value ) => value < 0 ? 0 : value > 1 ? 1 : value;
 
 		/// <summary>Clamps each component between 0 and 1</summary>
-		public static Vector2 Clamp01( Vector2 v ) =>
+        [MethodImpl( INLINE )] public static Vector2 Clamp01( Vector2 v ) =>
 			new Vector2(
 				v.x < 0f ? 0f : v.x > 1f ? 1f : v.x,
 				v.y < 0f ? 0f : v.y > 1f ? 1f : v.y
 			);
 
 		/// <inheritdoc cref="Mathfs.Clamp01(Vector2)"/>
-		public static Vector3 Clamp01( Vector3 v ) =>
+        [MethodImpl( INLINE )] public static Vector3 Clamp01( Vector3 v ) =>
 			new Vector3(
 				v.x < 0f ? 0f : v.x > 1f ? 1f : v.x,
 				v.y < 0f ? 0f : v.y > 1f ? 1f : v.y,
@@ -410,7 +412,7 @@ namespace Freya {
 			);
 
 		/// <inheritdoc cref="Mathfs.Clamp01(Vector2)"/>
-		public static Vector4 Clamp01( Vector4 v ) =>
+        [MethodImpl( INLINE )] public static Vector4 Clamp01( Vector4 v ) =>
 			new Vector4(
 				v.x < 0f ? 0f : v.x > 1f ? 1f : v.x,
 				v.y < 0f ? 0f : v.y > 1f ? 1f : v.y,
@@ -419,20 +421,20 @@ namespace Freya {
 			);
 
 		/// <summary>Clamps the value between -1 and 1</summary>
-		public static double ClampNeg1to1( double value ) => value < -1.0 ? -1.0 : value > 1.0 ? 1.0 : value;
+        [MethodImpl( INLINE )] public static double ClampNeg1to1( double value ) => value < -1.0 ? -1.0 : value > 1.0 ? 1.0 : value;
 
 		/// <summary>Clamps the value between -1 and 1</summary>
-		public static float ClampNeg1to1( float value ) => value < -1f ? -1f : value > 1f ? 1f : value;
+        [MethodImpl( INLINE )] public static float ClampNeg1to1( float value ) => value < -1f ? -1f : value > 1f ? 1f : value;
 
 		/// <summary>Clamps each component between -1 and 1</summary>
-		public static Vector2 ClampNeg1to1( Vector2 v ) =>
+        [MethodImpl( INLINE )] public static Vector2 ClampNeg1to1( Vector2 v ) =>
 			new Vector2(
 				v.x < -1f ? -1f : v.x > 1f ? 1f : v.x,
 				v.y < -1f ? -1f : v.y > 1f ? 1f : v.y
 			);
 
 		/// <summary>Clamps each component between -1 and 1</summary>
-		public static Vector3 ClampNeg1to1( Vector3 v ) =>
+        [MethodImpl( INLINE )] public static Vector3 ClampNeg1to1( Vector3 v ) =>
 			new Vector3(
 				v.x < -1f ? -1f : v.x > 1f ? 1f : v.x,
 				v.y < -1f ? -1f : v.y > 1f ? 1f : v.y,
@@ -440,7 +442,7 @@ namespace Freya {
 			);
 
 		/// <summary>Clamps each component between -1 and 1</summary>
-		public static Vector4 ClampNeg1to1( Vector4 v ) =>
+        [MethodImpl( INLINE )] public static Vector4 ClampNeg1to1( Vector4 v ) =>
 			new Vector4(
 				v.x < -1f ? -1f : v.x > 1f ? 1f : v.x,
 				v.y < -1f ? -1f : v.y > 1f ? 1f : v.y,
@@ -616,37 +618,37 @@ namespace Freya {
 		[MethodImpl( INLINE )] public static Vector3Int CeilToInt( Vector3 value ) => new Vector3Int( (int)Math.Ceiling( value.x ), (int)Math.Ceiling( value.y ), (int)Math.Ceiling( value.z ) );
 
 		/// <summary>Rounds the value to the nearest integer</summary>
-		[MethodImpl( INLINE )] public static float Round( float value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => (float)MathF.Round( value, midpointRounding );
+		[MethodImpl( INLINE )] public static float Round( float value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => (float)MathF.Round( value, midpointRounding );
 
 		/// <summary>Rounds the vector components to the nearest integer</summary>
-		[MethodImpl( INLINE )] public static Vector2 Round( Vector2 value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector2( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector2 Round( Vector2 value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector2( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ) );
 
 		/// <inheritdoc cref="Mathfs.Round(Vector2,MidpointRounding)"/>
-		[MethodImpl( INLINE )] public static Vector3 Round( Vector3 value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector3( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ), MathF.Round( value.z, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector3 Round( Vector3 value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector3( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ), MathF.Round( value.z, midpointRounding ) );
 
 		/// <inheritdoc cref="Mathfs.Round(Vector2,MidpointRounding)"/>
-		[MethodImpl( INLINE )] public static Vector4 Round( Vector4 value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector4( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ), MathF.Round( value.z, midpointRounding ), MathF.Round( value.w, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector4 Round( Vector4 value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector4( MathF.Round( value.x, midpointRounding ), MathF.Round( value.y, midpointRounding ), MathF.Round( value.z, midpointRounding ), MathF.Round( value.w, midpointRounding ) );
 
 		/// <summary>Rounds the value to the nearest value, snapped to the given interval size</summary>
-		[MethodImpl( INLINE )] public static float Round( float value, float snapInterval, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => MathF.Round( value / snapInterval, midpointRounding ) * snapInterval;
+		[MethodImpl( INLINE )] public static float Round( float value, float snapInterval, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => MathF.Round( value / snapInterval, midpointRounding ) * snapInterval;
 
 		/// <summary>Rounds the vector components to the nearest value, snapped to the given interval size</summary>
-		[MethodImpl( INLINE )] public static Vector2 Round( Vector2 value, float snapInterval, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector2( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector2 Round( Vector2 value, float snapInterval, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector2( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ) );
 
 		/// <inheritdoc cref="Mathfs.Round(Vector2,float,MidpointRounding)"/>
-		[MethodImpl( INLINE )] public static Vector3 Round( Vector3 value, float snapInterval, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector3( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ), Round( value.z, snapInterval, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector3 Round( Vector3 value, float snapInterval, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector3( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ), Round( value.z, snapInterval, midpointRounding ) );
 
 		/// <inheritdoc cref="Mathfs.Round(Vector2,float,MidpointRounding)"/>
-		[MethodImpl( INLINE )] public static Vector4 Round( Vector4 value, float snapInterval, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector4( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ), Round( value.z, snapInterval, midpointRounding ), Round( value.w, snapInterval, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector4 Round( Vector4 value, float snapInterval, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector4( Round( value.x, snapInterval, midpointRounding ), Round( value.y, snapInterval, midpointRounding ), Round( value.z, snapInterval, midpointRounding ), Round( value.w, snapInterval, midpointRounding ) );
 
 		/// <summary>Rounds the value to the nearest integer, returning an int value</summary>
-		[MethodImpl( INLINE )] public static int RoundToInt( float value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => (int)Math.Round( value, midpointRounding );
+		[MethodImpl( INLINE )] public static int RoundToInt( float value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => (int)Math.Round( value, midpointRounding );
 
 		/// <summary>Rounds the vector components to the nearest integer, returning an integer vector</summary>
-		[MethodImpl( INLINE )] public static Vector2Int RoundToInt( Vector2 value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector2Int( (int)Math.Round( value.x, midpointRounding ), (int)Math.Round( value.y, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector2Int RoundToInt( Vector2 value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector2Int( (int)Math.Round( value.x, midpointRounding ), (int)Math.Round( value.y, midpointRounding ) );
 
 		/// <inheritdoc cref="Mathfs.RoundToInt(Vector2,MidpointRounding)"/>
-		[MethodImpl( INLINE )] public static Vector3Int RoundToInt( Vector3 value, MidpointRounding midpointRounding = MidpointRounding.ToEven ) => new Vector3Int( (int)Math.Round( value.x, midpointRounding ), (int)Math.Round( value.y, midpointRounding ), (int)Math.Round( value.z, midpointRounding ) );
+		[MethodImpl( INLINE )] public static Vector3Int RoundToInt( Vector3 value, MidpointRounding midpointRounding = MIDPOINT_ROUNDING ) => new Vector3Int( (int)Math.Round( value.x, midpointRounding ), (int)Math.Round( value.y, midpointRounding ), (int)Math.Round( value.z, midpointRounding ) );
 
 		#endregion
 
@@ -980,7 +982,7 @@ namespace Freya {
 		/// <summary>Multiplies each component of <c>w</c> by the input values, and returns their sum</summary>
 		/// <param name="w">The weights (per component) to apply to the rest of the values</param>
 		/// <param name="a">The first value, weighted by <c>w.x</c></param>
-		/// <param name="b">The second value, weighted by <c>w.y</c></param>		
+		/// <param name="b">The second value, weighted by <c>w.y</c></param>
 		[MethodImpl( INLINE )] public static Vector2 WeightedSum( Vector2 w, Vector2 a, Vector2 b ) => a * w.x + b * w.y;
 
 		/// <summary>Multiplies each component of <c>w</c> by the input values, and returns their sum</summary>
