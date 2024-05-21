@@ -20,7 +20,7 @@ namespace Freya {
 
 		const MidpointRounding MIDPOINT_ROUNDING = MidpointRounding.AwayFromZero;
 
-		public static readonly bool[] bools = { false, true };
+		public static readonly IReadOnlyList<bool> bools = new bool[]{ false, true };
 
 		#region Constants
 
@@ -101,7 +101,7 @@ namespace Freya {
 		/// <param name="value">A value between 0 and 12 (integers can't store the factorial of 13 or above)</param>
 		[MethodImpl( INLINE )] public static int Factorial( uint value ) {
 			if( value <= 12 )
-				return factorialInt[value];
+				return factorialInt[(int)value];
 			if( value <= 20 )
 				throw new OverflowException( $"The Factorial of {value} is too big for integer representation, please use {nameof(FactorialLong)} instead" );
 			throw new OverflowException( $"The Factorial of {value} is too big for integer representation" );
@@ -111,11 +111,11 @@ namespace Freya {
 		/// <param name="value">A value between 0 and 20 (neither long nor ulong can store values large enough for the factorial of 21)</param>
 		[MethodImpl( INLINE )] public static long FactorialLong( uint value ) {
 			if( value <= 20 )
-				return factorialLong[value];
+				return factorialLong[(int)value];
 			throw new OverflowException( $"The Factorial of {value} is too big for integer representation, even unsigned longs, soooo, rip" );
 		}
 
-		static readonly long[] factorialLong = {
+		static readonly IReadOnlyList<long> factorialLong = new long[]{
 			/*0*/ 1,
 			/*1*/ 1,
 			/*2*/ 2,
@@ -139,7 +139,7 @@ namespace Freya {
 			/*20*/ 2432902008176640000
 		};
 
-		static readonly int[] factorialInt = {
+		static readonly IReadOnlyList<int> factorialInt = new int[]{
 			/*0*/ 1,
 			/*1*/ 1,
 			/*2*/ 2,
