@@ -525,22 +525,22 @@ namespace Freya {
 		/// <summary>Transforms a rotation from local space to world space</summary>
 		/// <param name="tf">The transform to use</param>
 		/// <param name="quat">The local space rotation</param>
-		public static Quaternion TransformRotation( this Transform tf, Quaternion quat ) => tf.rotation * quat;
+        [MethodImpl( INLINE )] public static Quaternion TransformRotation( this Transform tf, Quaternion quat ) => tf.rotation * quat;
 
 		/// <summary>Transforms a rotation from world space to local space</summary>
 		/// <param name="tf">The transform to use</param>
 		/// <param name="quat">The world space rotation</param>
-		public static Quaternion InverseTransformRotation( this Transform tf, Quaternion quat ) => Quaternion.Inverse( tf.rotation ) * quat;
+        [MethodImpl( INLINE )] public static Quaternion InverseTransformRotation( this Transform tf, Quaternion quat ) => Quaternion.Inverse( tf.rotation ) * quat;
 
 		/// <summary>Transforms a ray from world space to local space</summary>
 		/// <param name="tf">The transform to use</param>
 		/// <param name="ray">The world space ray</param>
-		public static Ray InverseTransformRay( this Transform tf, Ray ray ) => new(tf.InverseTransformPoint( ray.origin ), tf.InverseTransformDirection( ray.direction ));
+        [MethodImpl( INLINE )] public static Ray InverseTransformRay( this Transform tf, Ray ray ) => new(tf.InverseTransformPoint( ray.origin ), tf.InverseTransformDirection( ray.direction ));
 
 		/// <summary>Transforms a ray from local space to world space</summary>
 		/// <param name="tf">The transform to use</param>
 		/// <param name="ray">The local space ray</param>
-		public static Ray TransformRay( this Transform tf, Ray ray ) => new(tf.TransformPoint( ray.origin ), tf.TransformDirection( ray.direction ));
+        [MethodImpl( INLINE )] public static Ray TransformRay( this Transform tf, Ray ray ) => new(tf.TransformPoint( ray.origin ), tf.TransformDirection( ray.direction ));
 
 		#endregion
 
